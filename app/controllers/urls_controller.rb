@@ -12,7 +12,7 @@ class UrlsController < ApplicationController
   end
 
   def create
-    @url = Url.new(params[:url])
+    @url = Url.new(url_params)
     @url.shorten
     if @url.save
         redirect_to @url
@@ -21,5 +21,9 @@ class UrlsController < ApplicationController
     end
   end
 
-  
+  private
+  def url_params
+      params.require(:url).permit(:long_url)
+  end
+
 end
